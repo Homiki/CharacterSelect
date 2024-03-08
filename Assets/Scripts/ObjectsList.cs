@@ -10,30 +10,31 @@ public class ObjectsList : MonoBehaviour
     public GameObject buttonPrefab;
     public GameObject buttonParent;
 
-    public GameObject objectSpawner;
+    public GameObject objectParent;
+
+    GameObject currentObject;
+
 
     private void OnEnable()
     {
-        for(int i = 0; i < objects.Count; i++)
-        {
-            GameObject newButton = Instantiate(buttonPrefab, buttonParent.transform);
 
-            newButton.GetComponent<Button>().onClick.AddListener(() => SpawnOnClick());
-            
-            
+        for (int i = 0; i < objects.Count; i++)
+        {
+            GameObject buttonGameObject = Instantiate(buttonPrefab, buttonParent.transform);
+            Button button = buttonGameObject.GetComponent<Button>();
+            int index = i;
+            button.onClick.AddListener(() => SpawnOnClick(index));
         }
+
+
     }
 
-    private void SpawnOnClick()
+    public void SpawnOnClick(int index)
     {
-        //GetComponent<Button>().onClick.Invoke();
-        for(int j = 0; j < objects.Count; j++)
-        {
-            int objectToSpawn = objects.Count + 1;
+        Destroy(currentObject);
 
-            //GameObject newObject =  Instantiate(objects, objectSpawner.transform);
-        }
+        GameObject selectedObject = objects[index];
 
-
+        currentObject = Instantiate(selectedObject, objectParent.transform);
     }
 }
