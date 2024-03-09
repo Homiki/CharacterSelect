@@ -23,6 +23,7 @@ public class ObjectsList : MonoBehaviour
             GameObject buttonGameObject = Instantiate(buttonPrefab, buttonParent.transform);
             Button button = buttonGameObject.GetComponent<Button>();
             int index = i;
+            button.GetComponent<ButtonText>().buttonText.text = objects[index].name.ToString();
             button.onClick.AddListener(() => SpawnOnClick(index));
         }
 
