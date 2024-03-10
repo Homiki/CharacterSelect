@@ -12,22 +12,25 @@ public class ObjectsList : MonoBehaviour
 
     public GameObject objectParent;
 
-    GameObject currentObject;
+    public InputField nameInput;
+    public Button submitButton;
+    public Text nameHandler;
 
+    GameObject currentObject;
 
     private void OnEnable()
     {
-
         for (int i = 0; i < objects.Count; i++)
         {
             GameObject buttonGameObject = Instantiate(buttonPrefab, buttonParent.transform);
             Button button = buttonGameObject.GetComponent<Button>();
             int index = i;
-            button.GetComponent<ButtonText>().buttonText.text = objects[index].name.ToString();
             button.onClick.AddListener(() => SpawnOnClick(index));
+            button.GetComponent<ButtonText>().buttonText.text = objects[index].name.ToString();
+
         }
-
-
+        submitButton.onClick.AddListener(() => GetInputNameOnClick());
+        
     }
 
     public void SpawnOnClick(int index)
@@ -37,5 +40,17 @@ public class ObjectsList : MonoBehaviour
         GameObject selectedObject = objects[index];
 
         currentObject = Instantiate(selectedObject, objectParent.transform);
+
+        nameHandler.text = objects[index].name;
+
+    }
+
+    public void GetInputNameOnClick()
+    {
+        //Name object with text from input field
+        currentObject.name = nameInput.text;
+        nameHandler.text = currentObject.name;
+        //objects[index].name = nameInput.text;
+
     }
 }
