@@ -5,18 +5,19 @@ using UnityEngine.UI;
 
 public class ObjectsList : MonoBehaviour
 {
-    public List<GameObject> objects;
+    [SerializeField] List<GameObject> objects;
 
-    public GameObject buttonPrefab;
-    public GameObject buttonParent;
+    [SerializeField] GameObject buttonPrefab;
+    [SerializeField] GameObject buttonParent;
 
-    public GameObject objectParent;
+    [SerializeField] GameObject objectParent;
 
-    public InputField nameInput;
-    public Button submitButton;
-    public Text nameHandler;
+    [SerializeField] InputField nameInput;
+    [SerializeField] Button submitButton;
+    [SerializeField] Text nameHandler;
 
     GameObject currentObject;
+    int positionInList;
 
     private void OnEnable()
     {
@@ -41,6 +42,8 @@ public class ObjectsList : MonoBehaviour
 
         currentObject = Instantiate(selectedObject, objectParent.transform);
 
+        positionInList = index;
+
         nameHandler.text = objects[index].name;
 
     }
@@ -50,7 +53,7 @@ public class ObjectsList : MonoBehaviour
         //Name object with text from input field
         currentObject.name = nameInput.text;
         nameHandler.text = currentObject.name;
-        //objects[index].name = nameInput.text;
+        objects[positionInList].name = nameHandler.text;
 
     }
 }
